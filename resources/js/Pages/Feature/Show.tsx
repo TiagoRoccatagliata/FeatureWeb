@@ -1,7 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
-import {Feature, PaginatedData} from "@/types";
-import FeatureItem from "@/Components/FeatureItem";
+import {Feature} from "@/types";
+
 
 export default function Show({feature}: {feature: Feature}) {
     return (
