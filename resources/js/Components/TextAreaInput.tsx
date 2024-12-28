@@ -10,7 +10,7 @@ export default forwardRef(function TextAreaInput(
     className = '',
     rows = 6,
     ...props
-  }: InputHTMLAttributes<HTMLTextAreaElement> & { rows?: number },
+  }: InputHTMLAttributes<HTMLTextAreaElement> & { rows: number },
   ref,
 ) {
   const localRef = useRef<HTMLTextAreaElement>(null);
@@ -18,7 +18,6 @@ export default forwardRef(function TextAreaInput(
   useImperativeHandle(ref, () => ({
     focus: () => localRef.current?.focus(),
   }));
-
 
   return (
     <textarea

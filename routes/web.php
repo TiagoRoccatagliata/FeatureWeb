@@ -18,8 +18,15 @@ Route::middleware('auth')->group(function () {
             return Inertia::render('Dashboard');
         })->name('dashboard');
 
-        Route::resource('/feature', FeatureController::class);
+        Route::resource('/feature', FeatureController::class)
+            ->except(['index', 'show'])
+            ->middleware('can:'.\App\Enum\PermissionsEnum::ManageFeatures->value);
 
+        Route::get('/feature', [FeatureController::class, 'index'])
+         ->name('feature.index');
+
+        Route::get('feature/{feature}', [FeatureController::class, 'show'])
+            ->name('feature.show');
 
         Route::post('/feature/{feature}/upvote', [\App\Http\Controllers\UpvoteController::class, 'store'])
             ->name('upvote.store');
@@ -27,7 +34,8 @@ Route::middleware('auth')->group(function () {
             ->name('upvote.destroy');
 
         Route::post('/feature/{feature}/comments', [\App\Http\Controllers\CommentController::class, 'store'])
-            ->name('comment.store');
+            ->name('comment.store')
+            ->middleware('can:'.\App\Enum\PermissionsEnum::ManageComments->value);
         Route::delete('/comment/{comment}', [\App\Http\Controllers\CommentController::class, 'destroy'])
             ->name('comment.destroy');
 });
