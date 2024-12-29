@@ -6,11 +6,13 @@ import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
 import {FormEventHandler} from "react";
 import PrimaryButton from "@/Components/PrimaryButton";
+import Checkbox from "@/Components/Checkbox";
 import Radio from "@/Components/Radio";
 
 export default function Show({roles, user, roleLabels}: {
   roles: any, user: User, roleLabels: Record<string, string>
 }) {
+  console.log(roles)
 
   const {
     data,
@@ -33,6 +35,7 @@ export default function Show({roles, user, roleLabels}: {
   }
 
   const onRoleChange = (ev: any) => {
+    console.log(ev.target.value, ev.target.checked)
     if (ev.target.checked) {
       setData('roles', [ev.target.value])
     }

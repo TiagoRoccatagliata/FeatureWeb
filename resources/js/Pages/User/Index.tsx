@@ -1,11 +1,9 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import {Head, Link, usePoll} from '@inertiajs/react';
+import {Head, Link} from '@inertiajs/react';
 import {User, PageProps, PaginatedData} from "@/types";
 import {can} from "@/helpers";
 
-export default function Index({auth, users}: PageProps<{users: User[] }>) {
-
-  usePoll(3000);
+export default function Index({auth, users}: PageProps<{ users: User[] }>) {
 
   return (
     <AuthenticatedLayout
@@ -16,8 +14,6 @@ export default function Index({auth, users}: PageProps<{users: User[] }>) {
       }
     >
       <Head title="Users"/>
-
-
 
       <div className="relative overflow-x-auto">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -55,13 +51,14 @@ export default function Index({auth, users}: PageProps<{users: User[] }>) {
               {user.roles.join(', ')}
             </td>
             <td className="px-6 py-4">
-              <Link className="text-blue-500" href={route('user.edit', user.id)}>Edit</Link>
+              <Link href={route('user.edit', user.id)} className="text-blue-500">
+                Edit
+              </Link>
             </td>
           </tr>))}
           </tbody>
         </table>
       </div>
-
     </AuthenticatedLayout>
   );
 }
