@@ -7,7 +7,7 @@ export interface User {
   email_verified_at?: string;
   created_at: string;
   permissions: string[];
-  roles: string[];
+  roles: string[]
 }
 
 export type PaginatedData<T = any> = {
@@ -27,7 +27,7 @@ export type Feature = {
   name: string;
   description: string;
   user: User;
-  crated_at: string;
+  created_at: string;
   upvote_count: number;
   user_has_upvoted: boolean;
   user_has_downvoted: boolean;

@@ -4,7 +4,7 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import {Link, usePage} from '@inertiajs/react';
 import {PropsWithChildren, ReactNode, useState} from 'react';
-import {can} from "@/helpers";
+import {can, hasRole} from "@/helpers";
 
 export default function Authenticated({
                                         header,
@@ -12,7 +12,6 @@ export default function Authenticated({
                                       }: PropsWithChildren<{ header?: ReactNode }>) {
   const user = usePage().props.auth.user;
   const success: any = usePage().props.success;
-
 
   const [showingNavigationDropdown, setShowingNavigationDropdown] =
     useState(false);
@@ -37,17 +36,21 @@ export default function Authenticated({
                   Dashboard
                 </NavLink>
                 <NavLink
+                  prefetch={['mount', 'hover']}
                   href={route('feature.index')}
                   active={route().current('feature.index')}
                 >
                   Features
                 </NavLink>
-                {can(user, 'manage_users') &&<NavLink
-                  href={route('user.index')}
-                  active={route().current('user.index')}
-                >
-                  Users
-                </NavLink>}
+                {can(user, 'manage_users') &&
+
+                  <NavLink
+                    prefetch
+                    href={route('user.index')}
+                    active={route().current('user.index')}
+                  >
+                    Users
+                  </NavLink>}
               </div>
             </div>
 
@@ -80,6 +83,7 @@ export default function Authenticated({
 
                   <Dropdown.Content>
                     <Dropdown.Link
+                      prefetch
                       href={route('profile.edit')}
                     >
                       Profile
@@ -177,7 +181,7 @@ export default function Authenticated({
             </div>
 
             <div className="mt-3 space-y-1">
-              <ResponsiveNavLink href={route('profile.edit')}>
+              <ResponsiveNavLink prefetch href={route('profile.edit')}>
                 Profile
               </ResponsiveNavLink>
               <ResponsiveNavLink
@@ -203,7 +207,7 @@ export default function Authenticated({
       <div className="py-12">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
 
-          {success &&<div className="bg-emerald-500 py-4 px-6 rounded mb-8">
+          {success && <div className="bg-emerald-500 py-4 px-6 rounded mb-8">
             {success}
           </div>}
 
